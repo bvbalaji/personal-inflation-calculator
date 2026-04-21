@@ -503,7 +503,7 @@ export default function App(){
   
  async function genGroqAI(){
     const clientOpenAi = new OpenAI({
-      apiKey: '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',
+      apiKey: process.env.REACT_APP_GROQ_KEY,
       baseURL: "https://api.groq.com/openai/v1",
       dangerouslyAllowBrowser: true
     });
