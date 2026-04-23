@@ -477,9 +477,28 @@ export default function App(){
     showToast("📷 Reading your spending sheet…","info");
     try{
       const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(",")[1]);r.onerror=rej;r.readAsDataURL(file);});
-      const resp=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:500,messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:file.type||"image/jpeg",data:b64}},{type:"text",text:"OCR: Extract monthly INR spending for: food,housing,fuel,clothing,transport,healthcare,education,misc. Return ONLY JSON with these 8 keys, null if not found. No markdown."}]}]})});
+      const resp=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:600,messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:file.type||"image/jpeg",data:b64}},{type:"text",text:`You are an expert OCR assistant. Carefully examine this image — it may be a handwritten note, printed receipt, screenshot, or budget sheet showing monthly expenses in Indian Rupees (₹ or Rs).
+
+Your job: extract monthly spending amounts and map them to exactly these 8 categories:
+- food: anything related to groceries, meals, dining, restaurant, Swiggy, Zomato, vegetables, milk
+- housing: rent, EMI, home loan, society charges, maintenance, PG
+- fuel: electricity bill, water bill, gas, LPG, piped gas, utility bills
+- clothing: clothes, shoes, fashion, apparel, footwear
+- transport: petrol, diesel, cab, Ola, Uber, auto, metro, bus pass, travel
+- healthcare: doctor, hospital, medicine, pharmacy, health insurance, medical
+- education: school fees, college fees, tuition, books, coaching, courses
+- misc: everything else — entertainment, subscriptions, personal care, shopping, others
+
+Rules:
+1. If a value appears annual, divide by 12 to get monthly
+2. If a category is not mentioned, return null for it
+3. Numbers may be written as "8k" (=8000), "1.5L" (=150000), "15,000" or "15000"
+4. Return ONLY a valid JSON object with exactly these 8 keys. No explanation, no markdown, no extra text.
+
+Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transport":3000,"healthcare":1000,"education":2000,"misc":3000}`}]}]})});
       const data=await resp.json();
-      const parsed=JSON.parse((data?.content?.[0]?.text||"{}").replace(/```json|```/g,"").trim());
+      const raw=(data?.content?.[0]?.text||"{}").replace(/```json|```/g,"").trim();
+      const parsed=JSON.parse(raw);
       const updated={...spending};const newFilled=[];
       Object.keys(parsed).forEach(k=>{if(parsed[k]!=null&&DEFAULT.hasOwnProperty(k)){updated[k]=Math.round(Number(parsed[k]));newFilled.push(k);}});
       if(!newFilled.length)throw new Error();
@@ -523,6 +542,9 @@ export default function App(){
             <div className="cam-header">
               <div style={{fontSize:13,fontWeight:800,color:"#333"}}>📸 Point at your spending sheet</div>
               <button className="cam-close" onClick={()=>setModal(null)}>✕</button>
+            </div>
+            <div style={{background:"#FFFBF0",borderBottom:"2px solid #FFE082",padding:"8px 14px",fontSize:11,color:"#F7B731",fontWeight:700}}>
+              💡 For on-screen text (Notepad, apps), use <strong>Upload from Files</strong> — screenshot &amp; upload for better accuracy.
             </div>
             <video ref={videoRef} autoPlay playsInline muted style={{width:"100%",maxHeight:300,objectFit:"cover",display:"block",background:"#000"}}/>
             <canvas ref={canvasRef} style={{display:"none"}}/>
