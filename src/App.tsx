@@ -83,10 +83,10 @@ function DonutChart({ weights, cats, total }) {
     const pct=(weights[c.key]||0)/100;
     const sweep=pct*2*Math.PI;
     if(pct>=0.005){
-      const x1=cx+r*Math.cos(angle), y1=cy+r*Math.sin(angle);
-      const x2=cx+r*Math.cos(angle+sweep), y2=cy+r*Math.sin(angle+sweep);
-      const ix1=cx+ir*Math.cos(angle), iy1=cy+ir*Math.sin(angle);
-      const ix2=cx+ir*Math.cos(angle+sweep), iy2=cy+ir*Math.sin(angle+sweep);
+      const x1=cx+r*Math.cos(angle),y1=cy+r*Math.sin(angle);
+      const x2=cx+r*Math.cos(angle+sweep),y2=cy+r*Math.sin(angle+sweep);
+      const ix1=cx+ir*Math.cos(angle),iy1=cy+ir*Math.sin(angle);
+      const ix2=cx+ir*Math.cos(angle+sweep),iy2=cy+ir*Math.sin(angle+sweep);
       const large=sweep>Math.PI?1:0;
       const path=`M${x1.toFixed(2)},${y1.toFixed(2)} A${r},${r} 0 ${large} 1 ${x2.toFixed(2)},${y2.toFixed(2)} L${ix2.toFixed(2)},${iy2.toFixed(2)} A${ir},${ir} 0 ${large} 0 ${ix1.toFixed(2)},${iy1.toFixed(2)} Z`;
       slices.push({...c,path,pct});
@@ -97,9 +97,7 @@ function DonutChart({ weights, cats, total }) {
     <div style={{display:"flex",alignItems:"center",gap:"1.5rem",flexWrap:"wrap",justifyContent:"center"}}>
       <div style={{flexShrink:0}}>
         <svg width="180" height="180" viewBox="0 0 180 180">
-          {slices.map(s=>(
-            <path key={s.key} d={s.path} fill={s.color} style={{filter:`drop-shadow(0 2px 6px ${s.color}55)`,transition:"all .4s"}}/>
-          ))}
+          {slices.map(s=><path key={s.key} d={s.path} fill={s.color} style={{filter:`drop-shadow(0 2px 6px ${s.color}55)`,transition:"all .4s"}}/>)}
           <text x="90" y="85" textAnchor="middle" fontSize="12" fontWeight="800" fill="#333" fontFamily="DM Sans,sans-serif">{"₹"+(total/1000).toFixed(0)+"k"}</text>
           <text x="90" y="101" textAnchor="middle" fontSize="9" fontWeight="600" fill="#AAA" fontFamily="DM Sans,sans-serif">monthly</text>
         </svg>
@@ -133,10 +131,10 @@ body{font-family:'DM Sans',sans-serif;background:#F4F6FF;}
 .tab.active{color:#764ba2;border-bottom-color:#764ba2;background:linear-gradient(to bottom,#fff,#FAF6FF);}
 .tab:hover:not(.active){color:#764ba2;background:#FAF6FF;}
 .tab:active{transform:scale(.96);}
-.main{max-width:920px;margin:0 auto;padding:1.2rem;}
+.main{max-width:920px;margin:0 auto;padding:1.2rem;overflow-x:hidden;}
 .card{background:#fff;border-radius:20px;padding:1.3rem 1.4rem;margin-bottom:1.2rem;box-shadow:0 4px 20px rgba(91,45,142,.08);transition:box-shadow .25s,transform .2s;}
 .card:hover{box-shadow:0 8px 32px rgba(91,45,142,.14);}
-.card-title{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+.card-title{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;}
 .seg{display:flex;gap:4px;background:#F0EBF8;border-radius:14px;padding:4px;}
 .seg-btn{flex:1;padding:9px 10px;font-size:12px;font-weight:700;border:none;border-radius:11px;cursor:pointer;font-family:'DM Sans',sans-serif;color:#888;background:none;transition:all .2s;white-space:nowrap;touch-action:manipulation;user-select:none;}
 .seg-btn.active{background:linear-gradient(135deg,#764ba2,#5B2D8E);color:#fff;box-shadow:0 4px 12px rgba(91,45,142,.35);}
@@ -147,37 +145,33 @@ body{font-family:'DM Sans',sans-serif;background:#F4F6FF;}
 .preset-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;}
 .preset-btn{border-radius:18px;padding:1rem .8rem;cursor:pointer;text-align:center;font-family:'DM Sans',sans-serif;border:none;touch-action:manipulation;user-select:none;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(0,0,0,.12);position:relative;overflow:hidden;}
 .preset-btn:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 10px 28px rgba(0,0,0,.18);}
-.preset-btn:active{transform:scale(.93)!important;box-shadow:0 2px 8px rgba(0,0,0,.15);}
+.preset-btn:active{transform:scale(.93)!important;}
 .preset-icon{font-size:30px;display:block;margin-bottom:7px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));}
 .preset-label{font-size:12px;font-weight:800;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.3);}
 .preset-desc{font-size:10px;color:rgba(255,255,255,.8);margin-top:2px;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.2rem;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.2rem;min-width:0;}
 @media(max-width:540px){.grid2{grid-template-columns:1fr;}}
-.cat{border-radius:16px;padding:1rem;transition:transform .15s,box-shadow .15s;border:2.5px solid transparent;touch-action:manipulation;}
+.cat{border-radius:16px;padding:1rem;transition:transform .15s,box-shadow .15s;border:2.5px solid transparent;touch-action:manipulation;overflow:hidden;min-width:0;}
 .cat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1);}
 .cat:active{transform:scale(.97);}
 .cat:focus-within{box-shadow:0 0 0 4px rgba(118,75,162,.18);}
 .cat.filled{animation:flashFill .7s ease;}
 @keyframes flashFill{0%{transform:scale(1.04)}40%{transform:scale(1.02)}100%{transform:scale(1)}}
 .cat-icon{font-size:26px;margin-bottom:6px;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15));}
-.cat-name{font-size:12px;font-weight:800;color:#333;margin-bottom:4px;}
+.cat-name{font-size:12px;font-weight:800;color:#333;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .cat-pct{font-size:11px;font-weight:700;padding:2px 9px;border-radius:100px;display:inline-block;margin-bottom:8px;}
 .inp-row{display:flex;gap:5px;align-items:center;}
-.inp-wrap{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.7);border:2px solid rgba(255,255,255,.9);border-radius:10px;padding:7px 9px;flex:1;transition:all .2s;}
+.inp-wrap{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.7);border:2px solid rgba(255,255,255,.9);border-radius:10px;padding:7px 9px;flex:1;transition:all .2s;min-width:0;}
 .inp-wrap:focus-within{background:#fff;border-color:#764ba2;box-shadow:0 0 0 3px rgba(118,75,162,.15);}
-.inp-wrap span{font-size:13px;font-weight:800;transition:color .2s;}
-.inp-wrap input{background:transparent;border:none;outline:none;font-size:14px;font-weight:800;color:#333;width:100%;font-family:'DM Sans',sans-serif;}
+.inp-wrap span{font-size:13px;font-weight:800;transition:color .2s;flex-shrink:0;}
+.inp-wrap input{background:transparent;border:none;outline:none;font-size:14px;font-weight:800;color:#333;width:100%;min-width:0;font-family:'DM Sans',sans-serif;overflow:hidden;text-overflow:ellipsis;}
 .inp-wrap input::-webkit-inner-spin-button{-webkit-appearance:none;}
-.stepper{display:flex;flex-direction:column;gap:3px;}
+.stepper{display:flex;flex-direction:column;gap:3px;flex-shrink:0;}
 .step-btn{background:rgba(255,255,255,.7);border:2px solid rgba(255,255,255,.9);border-radius:6px;width:24px;height:18px;cursor:pointer;font-size:10px;color:#666;display:flex;align-items:center;justify-content:center;transition:all .15s;touch-action:manipulation;font-weight:800;}
 .step-btn:hover{background:#fff;border-color:#764ba2;color:#764ba2;transform:scale(1.1);}
 .step-btn:active{transform:scale(.87);}
 .track{height:4px;border-radius:2px;background:rgba(255,255,255,.4);margin-top:8px;overflow:hidden;}
 .fill{height:100%;border-radius:2px;transition:width .45s cubic-bezier(.4,0,.2,1);background:rgba(255,255,255,.8);}
-.btn-primary{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,#764ba2,#5B2D8E);color:#fff;font-size:12px;font-weight:800;padding:11px 18px;border-radius:12px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;box-shadow:0 4px 16px rgba(91,45,142,.35);touch-action:manipulation;user-select:none;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(91,45,142,.45);}
-.btn-primary:active{transform:scale(.93);}
-.btn-primary:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
 .btn-ghost{font-size:11px;font-weight:700;color:#888;background:#F4F6FF;border:2px solid #E0D4F0;border-radius:10px;padding:8px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;touch-action:manipulation;}
 .btn-ghost:hover{border-color:#FC5C65;color:#FC5C65;background:#FFF0F1;}
 .btn-ghost:active{transform:scale(.93);}
@@ -195,9 +189,8 @@ body{font-family:'DM Sans',sans-serif;background:#F4F6FF;}
 .cmp-box:active{transform:scale(.95);}
 .cmp-num{font-size:1.8rem;font-weight:800;letter-spacing:-1px;}
 .cmp-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px;opacity:.65;}
-.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;border-radius:10px;padding:6px 9px;transition:background .15s,transform .15s;cursor:default;touch-action:manipulation;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;border-radius:10px;padding:6px 9px;transition:background .15s,transform .15s;cursor:default;}
 .bar-row:hover{background:#F4F6FF;transform:translateX(4px);}
-.bar-row:active{background:#EDE8F8;}
 .bar-lbl{font-size:11px;color:#888;width:130px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600;display:flex;align-items:center;gap:6px;}
 .bar-row:hover .bar-lbl{color:#333;}
 .bar-track{flex:1;height:7px;background:#EEE;border-radius:4px;overflow:hidden;}
@@ -223,12 +216,12 @@ body{font-family:'DM Sans',sans-serif;background:#F4F6FF;}
 .dots span:nth-child(3){animation-delay:.4s;}
 @keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
 .metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-bottom:1.2rem;}
-.metric{border-radius:16px;padding:1.1rem;text-align:center;transition:transform .2s,box-shadow .2s;touch-action:manipulation;}
+.metric{border-radius:16px;padding:1.1rem;text-align:center;transition:transform .2s;touch-action:manipulation;}
 .metric:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.1);}
 .metric:active{transform:scale(.95);}
 .metric-val{font-size:1.8rem;font-weight:800;letter-spacing:-1px;}
 .metric-lbl{font-size:11px;margin-top:5px;line-height:1.4;font-weight:600;opacity:.8;}
-.bench-bar{position:relative;height:14px;background:#EEE;border-radius:7px;margin:1rem 0;overflow:visible;box-shadow:inset 0 2px 4px rgba(0,0,0,.08);}
+.bench-bar{position:relative;height:14px;background:#EEE;border-radius:7px;margin:1rem 0;overflow:visible;}
 .bench-fill{height:100%;border-radius:7px;background:linear-gradient(90deg,#20BF6B,#F7B731,#FC5C65);}
 .bench-marker{position:absolute;top:-6px;width:26px;height:26px;border-radius:50%;background:#333;border:4px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.25);transform:translateX(-50%);transition:left .6s cubic-bezier(.34,1.2,.64,1);}
 .bench-labels{display:flex;justify-content:space-between;font-size:10px;color:#AAA;margin-top:6px;font-weight:600;}
@@ -269,30 +262,6 @@ body{font-family:'DM Sans',sans-serif;background:#F4F6FF;}
 .num-inp{background:#F8F4FF;border:2.5px solid #E0D4F0;border-radius:12px;padding:10px 13px;font-size:14px;font-weight:800;color:#333;font-family:'DM Sans',sans-serif;outline:none;transition:all .2s;width:100%;}
 .num-inp:focus{border-color:#764ba2;box-shadow:0 0 0 3px rgba(118,75,162,.12);}
 .num-inp::-webkit-inner-spin-button{-webkit-appearance:none;}
-.overlay{position:fixed;inset:0;background:rgba(30,10,60,.65);z-index:50;display:flex;align-items:center;justify-content:center;animation:fadeIn .22s ease;backdrop-filter:blur(6px);}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal{background:#fff;border-radius:24px;padding:2.2rem 1.8rem;width:90%;max-width:360px;text-align:center;animation:popIn .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 24px 64px rgba(0,0,0,.22);}
-@keyframes popIn{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
-.mbtn{display:flex;align-items:center;justify-content:center;gap:9px;padding:15px 20px;border-radius:14px;font-size:13px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;transition:all .2s;width:100%;margin-bottom:10px;touch-action:manipulation;}
-.mbtn:hover{transform:translateY(-2px);}
-.mbtn:active{transform:scale(.93);}
-.mbtn.primary{background:linear-gradient(135deg,#764ba2,#5B2D8E);color:#fff;box-shadow:0 6px 18px rgba(91,45,142,.4);}
-.mbtn.secondary{background:#F8F4FF;color:#764ba2;border:2.5px solid #DDD5F5;}
-.mbtn.secondary:hover{background:#F0EBFF;}
-.mbtn-cancel{background:none;border:none;color:#BBB;font-size:12px;cursor:pointer;margin-top:6px;font-family:'DM Sans',sans-serif;font-weight:600;padding:6px 12px;touch-action:manipulation;}
-.mbtn-cancel:active{transform:scale(.93);}
-.cam-modal{background:#fff;border-radius:24px;overflow:hidden;width:90%;max-width:460px;animation:popIn .28s cubic-bezier(.34,1.56,.64,1);box-shadow:0 24px 64px rgba(0,0,0,.22);}
-.cam-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:2px solid #F0EBF8;}
-.cam-close{background:none;border:none;font-size:20px;cursor:pointer;color:#AAA;transition:all .15s;border-radius:9px;padding:5px 9px;touch-action:manipulation;}
-.cam-close:hover{color:#333;background:#F4F6FF;}
-.cam-close:active{transform:scale(.88);}
-.snap-btn{width:64px;height:64px;border-radius:50%;border:4px solid #333;background:#fff;cursor:pointer;position:relative;transition:all .15s;touch-action:manipulation;}
-.snap-btn::after{content:'';width:48px;height:48px;border-radius:50%;background:#333;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:all .15s;}
-.snap-btn:hover{border-color:#764ba2;}
-.snap-btn:hover::after{background:#764ba2;width:52px;height:52px;}
-.snap-btn:active::after{width:38px;height:38px;}
-.preview-modal{background:#fff;border-radius:22px;padding:1.5rem;width:90%;max-width:340px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.22);}
-.preview-modal img{width:100%;max-height:210px;object-fit:contain;border-radius:12px;border:2px solid #F0EBF8;margin-bottom:1rem;}
 .toast{position:fixed;bottom:24px;right:24px;left:24px;max-width:360px;margin:0 auto;font-size:13px;font-weight:800;padding:13px 20px;border-radius:14px;z-index:999;animation:toastIn .35s cubic-bezier(.34,1.56,.64,1);pointer-events:none;box-shadow:0 8px 28px rgba(0,0,0,.22);text-align:center;color:#fff;}
 @keyframes toastIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
 .footer{text-align:center;padding:1.5rem;color:#BBB;font-size:11px;border-top:2px solid #EEE;margin-top:1rem;font-weight:600;}
@@ -311,10 +280,7 @@ export default function App(){
   const [aiLoading,setAiLoading]=useState(false);
   const [toast,setToast]=useState("");
   const [toastType,setToastType]=useState("info");
-  const [scanning,setScanning]=useState(false);
-  const [previewUrl,setPreviewUrl]=useState(null);
   const [filledKeys,setFilledKeys]=useState([]);
-  const [modal,setModal]=useState(null);
   const [tracker,setTracker]=useState([]);
   const [diary,setDiary]=useState([]);
   const [diaryNote,setDiaryNote]=useState("");
@@ -329,11 +295,6 @@ export default function App(){
   const [activeTool,setActiveTool]=useState("goal");
   const prevRateRef=useRef(null);
   const toastRef=useRef(null);
-  const fileRef=useRef(null);
-  const videoRef=useRef(null);
-  const canvasRef=useRef(null);
-  const streamRef=useRef(null);
-  const isMobile=/Mobi|Android|iPhone|iPad|iPod|Tablet/i.test(navigator.userAgent);
 
   const showToast=(msg,type="info")=>{
     setToast(msg);setToastType(type);
@@ -349,10 +310,6 @@ export default function App(){
   },[]);
 
   useEffect(()=>{
-    if(modal!=="camera"&&streamRef.current){streamRef.current.getTracks().forEach(t=>t.stop());streamRef.current=null;}
-  },[modal]);
-
-  useEffect(()=>{
     (async()=>{
       try{
         const [tr,di]=await Promise.all([window.storage.get("tracker_data"),window.storage.get("diary_data")]);
@@ -362,7 +319,6 @@ export default function App(){
     })();
   },[]);
 
-  // Derived values
   const total=Object.values(spending).reduce((a,b)=>a+Number(b),0);
   const weights={};
   CATS.forEach(c=>{weights[c.key]=total>0?(Number(spending[c.key])/total)*100:0;});
@@ -449,65 +405,6 @@ export default function App(){
     window.storage.set("diary_data",JSON.stringify(updated)).catch(()=>{});
   }
 
-  async function openCamera(){
-    setModal("camera");
-    try{
-      const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"},audio:false});
-      streamRef.current=stream;
-      if(videoRef.current){videoRef.current.srcObject=stream;videoRef.current.play();}
-    }catch{setModal(null);showToast("⚠ Camera access denied","error");}
-  }
-
-  function snapPhoto(){
-    const v=videoRef.current,cv=canvasRef.current;
-    if(!v||!cv)return;
-    cv.width=v.videoWidth;cv.height=v.videoHeight;
-    cv.getContext("2d").drawImage(v,0,0);
-    cv.toBlob(blob=>{if(!blob)return;setModal(null);processImage(new File([blob],"snap.jpg",{type:"image/jpeg"}));},"image/jpeg",0.92);
-  }
-
-  function handleFileUpload(e){
-    const f=e.target.files?.[0];if(!f)return;
-    e.target.value="";setModal(null);processImage(f);
-  }
-
-  async function processImage(file){
-    const url=URL.createObjectURL(file);
-    setPreviewUrl(url);setScanning(true);setModal("scanning");
-    showToast("📷 Reading your spending sheet…","info");
-    try{
-      const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(",")[1]);r.onerror=rej;r.readAsDataURL(file);});
-      const resp=await fetch("https://api.anthropic.com/v1/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:600,messages:[{role:"user",content:[{type:"image",source:{type:"base64",media_type:file.type||"image/jpeg",data:b64}},{type:"text",text:`You are an expert OCR assistant. Carefully examine this image — it may be a handwritten note, printed receipt, screenshot, or budget sheet showing monthly expenses in Indian Rupees (₹ or Rs).
-
-Your job: extract monthly spending amounts and map them to exactly these 8 categories:
-- food: anything related to groceries, meals, dining, restaurant, Swiggy, Zomato, vegetables, milk
-- housing: rent, EMI, home loan, society charges, maintenance, PG
-- fuel: electricity bill, water bill, gas, LPG, piped gas, utility bills
-- clothing: clothes, shoes, fashion, apparel, footwear
-- transport: petrol, diesel, cab, Ola, Uber, auto, metro, bus pass, travel
-- healthcare: doctor, hospital, medicine, pharmacy, health insurance, medical
-- education: school fees, college fees, tuition, books, coaching, courses
-- misc: everything else — entertainment, subscriptions, personal care, shopping, others
-
-Rules:
-1. If a value appears annual, divide by 12 to get monthly
-2. If a category is not mentioned, return null for it
-3. Numbers may be written as "8k" (=8000), "1.5L" (=150000), "15,000" or "15000"
-4. Return ONLY a valid JSON object with exactly these 8 keys. No explanation, no markdown, no extra text.
-
-Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transport":3000,"healthcare":1000,"education":2000,"misc":3000}`}]}]})});
-      const data=await resp.json();
-      const raw=(data?.content?.[0]?.text||"{}").replace(/```json|```/g,"").trim();
-      const parsed=JSON.parse(raw);
-      const updated={...spending};const newFilled=[];
-      Object.keys(parsed).forEach(k=>{if(parsed[k]!=null&&DEFAULT.hasOwnProperty(k)){updated[k]=Math.round(Number(parsed[k]));newFilled.push(k);}});
-      if(!newFilled.length)throw new Error();
-      setSpending(updated);setFilledKeys(newFilled);setTimeout(()=>setFilledKeys([]),1500);
-      setScanning(false);setModal(null);setTimeout(()=>setPreviewUrl(null),1500);
-      showToast(`✓ Auto-filled ${newFilled.length} categories!`,"success");
-    }catch{setScanning(false);setModal(null);setPreviewUrl(null);showToast("⚠ Couldn't read data.","error");}
-  }
-
   async function genAI(){
     setAiLoading(true);setAi("");
     const top=[...CATS].sort((a,b)=>weights[b.key]-weights[a.key]).slice(0,3).map(c=>`${c.label} (${weights[c.key].toFixed(1)}% spend, ${adjustedCpi[c.key].toFixed(1)}% inflation)`).join(", ");
@@ -524,48 +421,6 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
       <style>{S}</style>
       {toast&&<div className="toast" style={{background:TOAST_COLORS[toastType]}}>{toast}</div>}
 
-      {modal==="picker"&&(
-        <div className="overlay" onClick={()=>setModal(null)}>
-          <div className="modal" onClick={e=>e.stopPropagation()}>
-            <div style={{fontSize:44,marginBottom:10}}>📷</div>
-            <div style={{fontSize:17,fontWeight:800,color:"#333",marginBottom:5}}>Add Spending Sheet</div>
-            <div style={{fontSize:12,color:"#AAA",marginBottom:"1.4rem",lineHeight:1.5,fontWeight:500}}>Snap or upload your budget — Claude reads and fills the form.</div>
-            {isMobile&&<button className="mbtn primary" onClick={openCamera}>📸 Take Photo Now</button>}
-            <button className="mbtn secondary" onClick={()=>fileRef.current?.click()}>🗂️ Upload from Files</button>
-            <button className="mbtn-cancel" onClick={()=>setModal(null)}>Cancel</button>
-          </div>
-        </div>
-      )}
-      {modal==="camera"&&(
-        <div className="overlay">
-          <div className="cam-modal">
-            <div className="cam-header">
-              <div style={{fontSize:13,fontWeight:800,color:"#333"}}>📸 Point at your spending sheet</div>
-              <button className="cam-close" onClick={()=>setModal(null)}>✕</button>
-            </div>
-            <div style={{background:"#FFFBF0",borderBottom:"2px solid #FFE082",padding:"8px 14px",fontSize:11,color:"#F7B731",fontWeight:700}}>
-              💡 For on-screen text (Notepad, apps), use <strong>Upload from Files</strong> — screenshot &amp; upload for better accuracy.
-            </div>
-            <video ref={videoRef} autoPlay playsInline muted style={{width:"100%",maxHeight:300,objectFit:"cover",display:"block",background:"#000"}}/>
-            <canvas ref={canvasRef} style={{display:"none"}}/>
-            <div style={{padding:"18px",display:"flex",justifyContent:"center"}}>
-              <button className="snap-btn" onClick={snapPhoto}/>
-            </div>
-          </div>
-        </div>
-      )}
-      {modal==="scanning"&&previewUrl&&(
-        <div className="overlay">
-          <div className="preview-modal">
-            <img src={previewUrl} alt="Spending sheet"/>
-            <div style={{fontSize:13,fontWeight:800,color:"#764ba2",display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
-              {scanning?<><div className="scan-ring" style={{borderTopColor:"#764ba2",borderColor:"#DDD5F5"}}/>Scanning with AI…</>:"✓ Filling categories…"}
-            </div>
-          </div>
-        </div>
-      )}
-      <input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={handleFileUpload}/>
-
       <div className="wrap">
         <div className="hero">
           <div className="pill">✦ India CPI Tool · {cpiData.month}</div>
@@ -581,9 +436,7 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
 
         <div className="main">
 
-          {/* ── CALCULATOR ── */}
           {tab===0&&(<>
-            {/* Settings */}
             <div className="card">
               <div className="card-title" style={{color:"#764ba2"}}>⚙️ Settings</div>
               <div style={{display:"flex",alignItems:"center",gap:8,padding:"10px 14px",background:"linear-gradient(135deg,#F8F4FF,#EDF4FF)",borderRadius:14,marginBottom:16,border:"2px solid #DDD5F5"}}>
@@ -611,7 +464,6 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
               <div style={{fontSize:12,color:"#888",fontWeight:600}}>State offset: <strong style={{color:stateOffset>0?"#FC5C65":stateOffset<0?"#20BF6B":"#AAA"}}>{stateOffset>0?"+":""}{stateOffset.toFixed(1)}% vs national avg</strong> · {sector}</div>
             </div>
 
-            {/* Presets */}
             <div className="card">
               <div className="card-title" style={{color:"#F7B731"}}>🎯 Quick Profiles</div>
               <div className="preset-grid">
@@ -625,16 +477,10 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
               </div>
             </div>
 
-            {/* Spending */}
             <div className="card">
               <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:"1rem",flexWrap:"wrap",gap:8}}>
                 <div className="card-title" style={{margin:0,color:"#20BF6B"}}>💰 Monthly Spending</div>
-                <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                  <button className="btn-primary" onClick={()=>setModal("picker")} disabled={scanning}>
-                    {scanning?<><div className="scan-ring"/><span>Scanning…</span></>:<>📷 Scan Sheet</>}
-                  </button>
-                  <button className="btn-ghost" onClick={()=>{setSpending(DEFAULT);setFilledKeys([]);showToast("↺ Reset","info");}}>↺ Reset</button>
-                </div>
+                <button className="btn-ghost" onClick={()=>{setSpending(DEFAULT);setFilledKeys([]);showToast("↺ Reset","info");}}>↺ Reset</button>
               </div>
               <div className="grid2">
                 {CATS.map(c=>{
@@ -664,7 +510,6 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
               <div style={{fontSize:13,color:"#888",fontWeight:600}}>Total monthly: <strong style={{color:"#333",fontWeight:800}}>₹{total.toLocaleString("en-IN")}</strong></div>
             </div>
 
-            {/* Donut Chart */}
             <div className="card">
               <div className="card-title" style={{color:"#8854D0"}}>🍩 Spending Breakdown</div>
               <DonutChart weights={weights} cats={CATS} total={total}/>
@@ -679,7 +524,6 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
               </div>
             </div>
 
-            {/* Results */}
             <div className="results">
               <div style={{display:"flex",alignItems:"flex-end",gap:16,flexWrap:"wrap",marginBottom:"1.5rem"}}>
                 <div className={`rate-num${rateBumped?" bumped":""}`} style={{color:rateColor,textShadow:`0 0 30px ${rateColor}44`}}>{personalRate.toFixed(2)}%</div>
@@ -738,7 +582,6 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
             )}
           </>)}
 
-          {/* ── TRACKER ── */}
           {tab===1&&(<>
             <div className="card">
               <div className="card-title" style={{color:"#2D98DA"}}>📈 Monthly Inflation Tracker</div>
@@ -768,7 +611,7 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
 
             <div className="card">
               <div className="card-title" style={{color:"#A55EEA"}}>📔 Inflation Diary</div>
-              <div style={{fontSize:12,color:"#888",marginBottom:12,fontWeight:500}}>Note what drove your inflation this month — rent hike, school fees, fuel prices, etc.</div>
+              <div style={{fontSize:12,color:"#888",marginBottom:12,fontWeight:500}}>Note what drove your inflation this month.</div>
               <textarea value={diaryNote} onChange={e=>setDiaryNote(e.target.value)}
                 placeholder={`What changed this month? e.g. "Landlord raised rent by ₹2,000."`}
                 style={{width:"100%",background:"#F8F4FF",border:"2.5px solid #E0D4F0",borderRadius:14,padding:"12px 14px",fontSize:13,color:"#333",fontFamily:"'DM Sans',sans-serif",resize:"vertical",minHeight:80,outline:"none",lineHeight:1.6,transition:"all .2s",fontWeight:500}}
@@ -814,7 +657,6 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
             </div>
           </>)}
 
-          {/* ── INSIGHTS ── */}
           {tab===2&&(<>
             <div className="card">
               <div className="card-title" style={{color:"#FC5C65"}}>💸 Annual Purchasing Power Loss</div>
@@ -876,7 +718,6 @@ Example output: {"food":8000,"housing":15000,"fuel":2000,"clothing":1500,"transp
             </div>
           </>)}
 
-          {/* ── TOOLS ── */}
           {tab===3&&(<>
             <div className="card">
               <div className="seg" style={{marginBottom:18}}>
