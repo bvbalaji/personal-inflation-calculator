@@ -499,29 +499,6 @@ export default function App(){
     }catch{setAi("Could not generate analysis.");}
     setAiLoading(false);
   }
-  
- async function genGeminiAI(){   
-    setAiLoading(true);setAi("");
-    const top=[...CATS].sort((a,b)=>weights[b.key]-weights[a.key]).slice(0,3).map(c=>`${c.label} (${weights[c.key].toFixed(1)}% spend, ${adjustedCpi[c.key].toFixed(1)}% inflation)`).join(", ");
-    try{
-      const payload={
-          "contents": [
-            {
-              "parts": [
-                {
-                  "text": `Personal finance analyst India. Personal inflation: ${personalRate.toFixed(2)}%, National: ${adjustedCpi.headline.toFixed(2)}%, State: ${state}, Sector: ${sector}, Month: ${cpiData.month}, Top spend: ${top}, Monthly: ₹${total.toLocaleString("en-IN")}, Annual loss: ₹${fmt(annualLoss)}. Write 3 short paragraphs: 1) Rate vs national 2) Categories hurting most 3) Two India-specific tips. Under 200 words.`
-                }
-              ]
-            }
-          ]
-        };
-      const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent",{method:"POST",headers:{"Content-Type":"application/json", "X-goog-api-key": import.meta.env.VITE_GEMINI_ACCESS},body:JSON.stringify(payload)});
-      console.log(r);
-      const d=await r.json();
-      setAi(d.candidates[0].content.parts[0].text ||"Unable to generate.");
-    }catch (e){setAi("Could not generate analysis: " + e.message);}
-    setAiLoading(false);
-  }
 
   return(
     <>
@@ -719,7 +696,7 @@ export default function App(){
             </div>
 
             <div style={{display:"flex",gap:10,marginBottom:"1.2rem",flexWrap:"wrap"}}>
-              <button className="cta" style={{flex:1}} onClick={genGeminiAI} disabled={aiLoading||total===0}>
+              <button className="cta" style={{flex:1}} onClick={genAI} disabled={aiLoading||total===0}>
                 {aiLoading?"Generating…":"✦ Generate AI Analysis"}
               </button>
               <button className="save-btn" onClick={saveToTracker}>📌 Save to Tracker</button>
@@ -729,7 +706,7 @@ export default function App(){
               <div className="ai-box">
                 <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
                   <div style={{background:"linear-gradient(135deg,#764ba2,#5B2D8E)",color:"#fff",fontSize:10,fontWeight:800,letterSpacing:1.5,textTransform:"uppercase",padding:"6px 14px",borderRadius:100,boxShadow:"0 4px 12px rgba(91,45,142,.35)"}}>✦ AI Analysis</div>
-                  <div style={{fontSize:11,color:"#AAA",fontWeight:600}}>Gemini · {state} · {sector} · {cpiData.month}</div>
+                  <div style={{fontSize:11,color:"#CCC",fontWeight:600}}>Claude · {state} · {sector} · {cpiData.month}</div>
                 </div>
                 <div className="ai-txt">
                   {aiLoading?<div style={{display:"flex",alignItems:"center",gap:10,color:"#BBB"}}><Dots/><span style={{fontWeight:600}}>Analysing your profile…</span></div>
