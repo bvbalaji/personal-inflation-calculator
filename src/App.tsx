@@ -268,6 +268,106 @@ body{font-family:'DM Sans',sans-serif;background:#F4F6FF;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 `;
 
+function SmartRebalancer({ spending, adjustedCpi, personalRate, total, cats, fmt }) {
+  const [shifts, setShifts] = useState({});
+
+  // New spending after shifts
+  const newSpending = {};
+  cats.forEach(c => { newSpending[c.key] = Math.max(0, (Number(spending[c.key]) || 0) + (shifts[c.key] || 0)); });
+  const newTotal = Object.values(newSpending).reduce((a, b) => a + b, 0);
+  const newWeights = {};
+  cats.forEach(c => { newWeights[c.key] = newTotal > 0 ? (newSpending[c.key] / newTotal) * 100 : 0; });
+  const newRate = cats.reduce((s, c) => s + (newWeights[c.key] / 100) * (adjustedCpi[c.key] || 0), 0);
+  const rateDiff = newRate - personalRate;
+  const annualSaving = (personalRate - newRate) / 100 * newTotal * 12;
+
+  // Sort cats by inflation impact (highest first = worst offenders)
+  const sorted = [...cats].sort((a, b) =>
+    ((adjustedCpi[b.key] || 0) * (newWeights[b.key] / 100)) - ((adjustedCpi[a.key] || 0) * (newWeights[a.key] / 100))
+  );
+
+  function nudge(key, dir) {
+    const step = 500;
+    const cur = shifts[key] || 0;
+    const val = cur + dir * step;
+    // Don't let spending go below 0
+    if ((Number(spending[key]) || 0) + val < 0) return;
+    setShifts(s => ({ ...s, [key]: val }));
+  }
+
+  function reset() { setShifts({}); }
+
+  const hasShifts = Object.values(shifts).some(v => v !== 0);
+
+  return (
+    <div className="card">
+      <div className="card-title" style={{ color: "#20BF6B" }}>⚖️ Smart Rebalancing Engine</div>
+      <div style={{ fontSize: 12, color: "#888", marginBottom: 14, fontWeight: 500 }}>
+        Shift spending between categories in ₹500 steps and instantly see how your personal inflation rate changes.
+      </div>
+
+      {/* Live result bar */}
+      <div style={{ background: hasShifts ? (rateDiff < 0 ? "linear-gradient(135deg,#F0FFF7,#D4F5E5)" : "linear-gradient(135deg,#FFF0F1,#FFE8EA)") : "linear-gradient(135deg,#F8F4FF,#EDF4FF)", border: `2px solid ${hasShifts ? (rateDiff < 0 ? "#A8EEC8" : "#FFBCC0") : "#DDD5F5"}`, borderRadius: 14, padding: "12px 16px", marginBottom: 14, transition: "all .3s" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
+          <div>
+            <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "#AAA", marginBottom: 4 }}>New Personal Rate</div>
+            <div style={{ fontSize: "2rem", fontWeight: 800, letterSpacing: -1, color: hasShifts ? (rateDiff < 0 ? "#20BF6B" : "#FC5C65") : "#764ba2", transition: "color .3s" }}>
+              {newRate.toFixed(2)}%
+            </div>
+          </div>
+          {hasShifts && (
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontSize: 13, fontWeight: 800, color: rateDiff < 0 ? "#20BF6B" : "#FC5C65" }}>
+                {rateDiff < 0 ? "▼" : "▲"} {Math.abs(rateDiff).toFixed(2)}% vs current
+              </div>
+              {annualSaving > 0 && (
+                <div style={{ fontSize: 12, color: "#20BF6B", fontWeight: 700, marginTop: 3 }}>
+                  Save ₹{fmt(annualSaving)} annually
+                </div>
+              )}
+              {annualSaving < 0 && (
+                <div style={{ fontSize: 12, color: "#FC5C65", fontWeight: 700, marginTop: 3 }}>
+                  +₹{fmt(Math.abs(annualSaving))} extra cost annually
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Category sliders */}
+      {sorted.map(c => {
+        const shift = shifts[c.key] || 0;
+        const newAmt = Math.max(0, (Number(spending[c.key]) || 0) + shift);
+        const impact = ((adjustedCpi[c.key] || 0) * (newWeights[c.key] / 100)).toFixed(3);
+        return (
+          <div key={c.key} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 12, marginBottom: 8, background: shift < 0 ? `${c.bg}` : shift > 0 ? "#FFF8F0" : "#FAFAFA", border: `1.5px solid ${shift < 0 ? c.border : shift > 0 ? "#FFE0B2" : "#EEE"}`, transition: "all .2s" }}>
+            <span style={{ fontSize: 20, flexShrink: 0 }}>{c.icon}</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 11, fontWeight: 800, color: "#333", marginBottom: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.label}</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#333" }}>₹{fmt(newAmt)}</span>
+                {shift !== 0 && <span style={{ fontSize: 10, fontWeight: 700, color: shift < 0 ? "#20BF6B" : "#FC5C65" }}>{shift > 0 ? "+" : ""}₹{fmt(shift)}</span>}
+                <span style={{ fontSize: 10, color: "#AAA", marginLeft: "auto" }}>{impact}% impact</span>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 5, flexShrink: 0 }}>
+              <button onClick={() => nudge(c.key, -1)} style={{ width: 30, height: 30, borderRadius: 8, border: `2px solid ${c.border}`, background: c.bg, color: c.color, fontSize: 14, fontWeight: 800, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all .15s", touchAction: "manipulation" }}>−</button>
+              <button onClick={() => nudge(c.key, 1)} style={{ width: 30, height: 30, borderRadius: 8, border: "2px solid #FFE0B2", background: "#FFF8F0", color: "#FF9F43", fontSize: 14, fontWeight: 800, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all .15s", touchAction: "manipulation" }}>+</button>
+            </div>
+          </div>
+        );
+      })}
+
+      {hasShifts && (
+        <button onClick={reset} style={{ marginTop: 8, width: "100%", padding: "10px", borderRadius: 10, border: "2px solid #E0D4F0", background: "#F8F4FF", color: "#764ba2", fontSize: 12, fontWeight: 800, cursor: "pointer", fontFamily: "'DM Sans',sans-serif", transition: "all .2s" }}>
+          ↺ Reset all shifts
+        </button>
+      )}
+    </div>
+  );
+}
+
 export default function App(){
   const [tab,setTab]=useState(0);
   const [spending,setSpending]=useState(DEFAULT);
@@ -667,6 +767,9 @@ export default function App(){
                 <div className="metric" style={{background:"linear-gradient(135deg,#F0FFF7,#D4F5E5)",boxShadow:"0 4px 16px rgba(32,191,107,.15)"}}><div className="metric-val" style={{color:"#20BF6B"}}>{(personalRate+1.5).toFixed(1)}%+</div><div className="metric-lbl" style={{color:"#20BF6B"}}>FD rate to beat inflation</div></div>
               </div>
             </div>
+
+            {/* Smart Rebalancing Engine */}
+            <SmartRebalancer spending={spending} adjustedCpi={adjustedCpi} personalRate={personalRate} total={total} cats={CATS} fmt={fmt}/>
 
             <div className="card">
               <div className="card-title" style={{color:"#A55EEA"}}>💡 Smart Substitution Suggestions</div>
