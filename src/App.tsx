@@ -358,6 +358,136 @@ body{font-family:'DM Sans',sans-serif;background:#F4F6FF;}
 .tm-timeline{display:flex;align-items:center;gap:0;margin:16px 0;overflow:hidden;border-radius:12px;}
 .tm-segment{flex:1;height:8px;transition:all .3s;}
 .tm-era-label{font-size:10px;color:#AAA;font-weight:700;text-align:center;margin-top:4px;}
+.dark-toggle{position:absolute;top:1.1rem;right:1.2rem;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:100px;padding:6px 14px;font-size:11px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;letter-spacing:.5px;}
+.dark-toggle:hover{background:rgba(255,255,255,.25);}
+.chart-wrap{margin-bottom:16px;background:#F8F4FF;border-radius:14px;padding:12px 10px 6px;}
+/* ── Dark mode ────────────────────────────────────────────────────────────
+   Page   #0C0A14   the void
+   Card   #15121F   raised surface
+   Inset  #1C1828   inputs, wells, recessed
+   Lift   #241F32   hover, active fills
+   Rim    rgba(255,255,255,.07)  subtle edge highlights
+   Accent #A78BFA   bright lavender — readable on every dark surface
+   Hi     #F0EBFF   primary text
+   Mid    #8B7FB0   secondary text / labels
+   Lo     #4A4368   muted / disabled
+──────────────────────────────────────────────────────────────────────── */
+.wrap.dark{background:#0C0A14;}
+
+/* ── Page chrome ── */
+.wrap.dark .tabs{background:#15121F;box-shadow:0 1px 0 rgba(255,255,255,.06),0 4px 20px rgba(0,0,0,.6);}
+.wrap.dark .tab{color:#4A4368;border-bottom-color:transparent;}
+.wrap.dark .tab.active{color:#A78BFA;border-bottom-color:#A78BFA;background:linear-gradient(to bottom,#15121F,#1C1828);}
+.wrap.dark .tab:hover:not(.active){color:#A78BFA;background:#1C1828;}
+.wrap.dark .footer{color:#4A4368;border-top-color:#1C1828;}
+
+/* ── Cards — dark base, bright rim ── */
+.wrap.dark .card{background:#15121F;border:1px solid rgba(255,255,255,.07);box-shadow:0 4px 24px rgba(0,0,0,.5);}
+.wrap.dark .card:hover{border-color:rgba(167,139,250,.22);box-shadow:0 8px 32px rgba(0,0,0,.6);}
+.wrap.dark .card-title{color:#A78BFA!important;}
+
+/* ── Results panel ── */
+.wrap.dark .results{background:#15121F;border:1px solid rgba(167,139,250,.2);}
+.wrap.dark .rate-lbl{color:#4A4368;}
+.wrap.dark .delta-badge{background:#1C1828!important;border-color:rgba(255,255,255,.1)!important;}
+.wrap.dark .cmp-box{background:#1C1828!important;border:1px solid rgba(255,255,255,.08)!important;box-shadow:none!important;}
+.wrap.dark .cmp-box:hover{background:#241F32!important;}
+.wrap.dark .cmp-num{/* keep colour from inline style — it's already vivid enough on dark */}
+.wrap.dark .cmp-lbl{opacity:.6;}
+.wrap.dark .bar-row:hover{background:#1C1828;}
+.wrap.dark .bar-lbl{color:#8B7FB0;}
+.wrap.dark .bar-row:hover .bar-lbl{color:#F0EBFF;}
+.wrap.dark .bar-track{background:#1C1828;}
+.wrap.dark .bar-val{color:#C4B5FD;}
+
+/* ── Controls ── */
+.wrap.dark .seg{background:#1C1828;border:1px solid rgba(255,255,255,.06);}
+.wrap.dark .seg-btn{color:#4A4368;}
+.wrap.dark .seg-btn:hover:not(.active){color:#A78BFA;background:rgba(167,139,250,.1);}
+.wrap.dark .seg-btn.active{background:linear-gradient(135deg,#7C3AED,#6D28D9);color:#fff;box-shadow:0 4px 16px rgba(109,40,217,.45);}
+.wrap.dark .select{background:#1C1828;border-color:rgba(255,255,255,.1);color:#F0EBFF;}
+
+/* ── Category spending tiles ── */
+/* Strip the pastel background — use the tile's own accent colour as a dim tint instead */
+.wrap.dark .cat{background:#1C1828!important;border-color:rgba(255,255,255,.08)!important;box-shadow:none!important;}
+.wrap.dark .cat.filled{border-color:rgba(255,255,255,.18)!important;}
+.wrap.dark .cat-name{color:#F0EBFF;}
+.wrap.dark .cat-pct{background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.12)!important;}
+.wrap.dark .inp-wrap{background:#241F32;border-color:rgba(255,255,255,.09);}
+.wrap.dark .inp-wrap span{color:#8B7FB0;}
+.wrap.dark .inp-wrap input{color:#F0EBFF;}
+.wrap.dark .inp-wrap:focus-within{background:#241F32;border-color:#A78BFA;box-shadow:0 0 0 3px rgba(167,139,250,.18);}
+.wrap.dark .step-btn{background:#241F32;border-color:rgba(255,255,255,.09);color:#8B7FB0;}
+.wrap.dark .step-btn:hover{border-color:#A78BFA;color:#A78BFA;}
+.wrap.dark .track{background:rgba(255,255,255,.08)!important;}
+.wrap.dark .fill{opacity:.7;}
+
+/* ── Buttons ── */
+.wrap.dark .btn-ghost{background:#1C1828;border-color:rgba(255,255,255,.1);color:#8B7FB0;}
+.wrap.dark .btn-ghost:hover{border-color:#F87171;color:#F87171;background:rgba(248,113,113,.08);}
+.wrap.dark .save-btn{box-shadow:0 4px 14px rgba(16,185,129,.3);}
+.wrap.dark .cta:disabled{opacity:.35;}
+
+/* ── Inputs (tools) ── */
+.wrap.dark .num-inp{background:#1C1828;border-color:rgba(255,255,255,.1);color:#F0EBFF;}
+.wrap.dark .num-inp:focus{border-color:#A78BFA;box-shadow:0 0 0 3px rgba(167,139,250,.18);}
+.wrap.dark .sal-inp{background:#1C1828;border-color:rgba(255,255,255,.1);color:#F0EBFF;}
+
+/* ── Metrics — kill the pastel gradient, give them a tinted dark card ── */
+.wrap.dark .metric{background:#1C1828!important;box-shadow:none!important;border:1px solid rgba(255,255,255,.07);}
+.wrap.dark .metric-val{/* keep the inline colour — vivid on dark is fine */}
+.wrap.dark .metric-lbl{opacity:.55;}
+
+/* ── Peer benchmark ── */
+.wrap.dark .bench-bar{background:#1C1828;}
+.wrap.dark .bench-marker{background:#A78BFA;border-color:#15121F;box-shadow:0 2px 10px rgba(167,139,250,.5);}
+.wrap.dark .bench-labels span{color:#4A4368;}
+/* benchmark verdict box — kill the pastel */
+.wrap.dark [style*="linear-gradient(135deg,#FFF0F1"]{background:#1C1828!important;}
+.wrap.dark [style*="linear-gradient(135deg,#FFFBF0"]{background:#1C1828!important;}
+.wrap.dark [style*="linear-gradient(135deg,#F0FFF7"]{background:#1C1828!important;}
+
+/* ── Tracker ── */
+.wrap.dark .tracker-entry{background:#1C1828!important;border-color:rgba(255,255,255,.07)!important;}
+.wrap.dark .tracker-entry:hover{background:#241F32!important;}
+.wrap.dark .tracker-month{color:#F0EBFF;}
+.wrap.dark .tracker-bar{background:#241F32;}
+.wrap.dark .chart-wrap{background:#1C1828;border:1px solid rgba(255,255,255,.07);}
+
+/* ── Diary ── */
+.wrap.dark .diary-entry{background:#1C1828;border-color:rgba(255,255,255,.08);}
+.wrap.dark .diary-entry:hover{border-color:rgba(167,139,250,.4);background:#241F32;}
+.wrap.dark .diary-month{color:#F0EBFF;}
+.wrap.dark .diary-note{color:#8B7FB0;}
+.wrap.dark textarea{background:#1C1828!important;border-color:rgba(255,255,255,.1)!important;color:#F0EBFF!important;}
+
+/* ── Forecast ── */
+.wrap.dark .forecast-row:hover{background:#1C1828;}
+.wrap.dark .forecast-lbl{color:#8B7FB0;}
+.wrap.dark .forecast-now{color:#8B7FB0;}
+.wrap.dark .forecast-arrow{color:#4A4368;}
+
+/* ── AI box ── */
+.wrap.dark .ai-box{background:#15121F;border-color:rgba(167,139,250,.18);}
+.wrap.dark .ai-txt{color:#8B7FB0;}
+.wrap.dark .ai-txt strong{color:#F0EBFF;}
+
+/* ── Substitution cards — kill pastel, keep accent text/icons ── */
+.wrap.dark .sub-card{background:#1C1828!important;box-shadow:none!important;border:1px solid rgba(255,255,255,.07);}
+.wrap.dark .sub-tip{color:#8B7FB0;border-bottom-color:rgba(255,255,255,.06);}
+
+/* ── Tool results — kill pastel ── */
+.wrap.dark .tool-result{background:#1C1828!important;border:1px solid rgba(255,255,255,.08)!important;box-shadow:none!important;}
+.wrap.dark .tool-key{color:#8B7FB0;}
+.wrap.dark .tool-val{color:#F0EBFF;}
+.wrap.dark .tool-row{border-bottom-color:rgba(255,255,255,.06);}
+
+/* ── Verdict / delta badge ── */
+.wrap.dark .verdict{background:#1C1828!important;border-color:rgba(255,255,255,.1)!important;}
+.wrap.dark .delta-badge{background:#1C1828!important;border-color:rgba(255,255,255,.1)!important;}
+
+/* ── Salary inline text ── */
+.wrap.dark .salary-text{color:#8B7FB0;}
 `;
 
 // ── SmartRebalancer ──────────────────────────────────────────────────────────
@@ -369,9 +499,10 @@ interface SmartRebalancerProps {
   total: number;
   cats: Cat[];
   fmt: (n: number) => string;
+  dark: boolean;
 }
 
-function SmartRebalancer({ spending, adjustedCpi, personalRate, total, cats, fmt }: SmartRebalancerProps): JSX.Element {
+function SmartRebalancer({ spending, adjustedCpi, personalRate, total, cats, fmt, dark }: SmartRebalancerProps): JSX.Element {
   const [shifts, setShifts] = useState<Partial<Record<CatKey, number>>>({});
 
   const newSpending = {} as Spending;
@@ -405,7 +536,7 @@ function SmartRebalancer({ spending, adjustedCpi, personalRate, total, cats, fmt
       <div style={{ fontSize: 12, color: "#888", marginBottom: 14, fontWeight: 500 }}>
         Shift spending between categories in ₹500 steps and instantly see how your personal inflation rate changes.
       </div>
-      <div style={{ background: hasShifts ? (rateDiff < 0 ? "linear-gradient(135deg,#F0FFF7,#D4F5E5)" : "linear-gradient(135deg,#FFF0F1,#FFE8EA)") : "linear-gradient(135deg,#F8F4FF,#EDF4FF)", border: `2px solid ${hasShifts ? (rateDiff < 0 ? "#A8EEC8" : "#FFBCC0") : "#DDD5F5"}`, borderRadius: 14, padding: "12px 16px", marginBottom: 14, transition: "all .3s" }}>
+      <div style={{ background: dark ? "#1C1828" : hasShifts ? (rateDiff < 0 ? "linear-gradient(135deg,#F0FFF7,#D4F5E5)" : "linear-gradient(135deg,#FFF0F1,#FFE8EA)") : "linear-gradient(135deg,#F8F4FF,#EDF4FF)", border: dark ? `1px solid ${hasShifts ? (rateDiff < 0 ? "rgba(32,191,107,.3)" : "rgba(252,92,101,.3)") : "rgba(167,139,250,.2)"}` : `2px solid ${hasShifts ? (rateDiff < 0 ? "#A8EEC8" : "#FFBCC0") : "#DDD5F5"}`, borderRadius: 14, padding: "12px 16px", marginBottom: 14, transition: "all .3s" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
           <div>
             <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "#AAA", marginBottom: 4 }}>New Personal Rate</div>
@@ -429,14 +560,14 @@ function SmartRebalancer({ spending, adjustedCpi, personalRate, total, cats, fmt
         const newAmt = Math.max(0, (spending[c.key] || 0) + shift);
         const impact = ((adjustedCpi[c.key] || 0) * (newWeights[c.key] / 100)).toFixed(3);
         return (
-          <div key={c.key} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 12, marginBottom: 8, background: shift < 0 ? c.bg : shift > 0 ? "#FFF8F0" : "#FAFAFA", border: `1.5px solid ${shift < 0 ? c.border : shift > 0 ? "#FFE0B2" : "#EEE"}`, transition: "all .2s" }}>
+          <div key={c.key} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", borderRadius: 12, marginBottom: 8, background: dark ? "#1C1828" : shift < 0 ? c.bg : shift > 0 ? "#FFF8F0" : "#FAFAFA", border: dark ? `1px solid ${shift < 0 ? c.color + "44" : shift > 0 ? "rgba(255,159,67,.3)" : "rgba(255,255,255,.07)"}` : `1.5px solid ${shift < 0 ? c.border : shift > 0 ? "#FFE0B2" : "#EEE"}`, transition: "all .2s" }}>
             <span style={{ fontSize: 20, flexShrink: 0 }}>{c.icon}</span>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 11, fontWeight: 800, color: "#333", marginBottom: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.label}</div>
+              <div style={{ fontSize: 11, fontWeight: 800, color: dark ? "#F0EBFF" : "#333", marginBottom: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.label}</div>
               <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <span style={{ fontSize: 12, fontWeight: 700, color: "#333" }}>₹{fmt(newAmt)}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: dark ? "#C4B5FD" : "#333" }}>₹{fmt(newAmt)}</span>
                 {shift !== 0 && <span style={{ fontSize: 10, fontWeight: 700, color: shift < 0 ? "#20BF6B" : "#FC5C65" }}>{shift > 0 ? "+" : ""}₹{fmt(shift)}</span>}
-                <span style={{ fontSize: 10, color: "#AAA", marginLeft: "auto" }}>{impact}% impact</span>
+                <span style={{ fontSize: 10, color: dark ? "#4A4368" : "#AAA", marginLeft: "auto" }}>{impact}% impact</span>
               </div>
             </div>
             <div style={{ display: "flex", gap: 5, flexShrink: 0 }}>
@@ -598,6 +729,7 @@ function InflationTimeMachine({ personalRate, total, fmt }: InflationTimeMachine
 
 export default function App(): JSX.Element {
   const [tab, setTab]             = useState<number>(0);
+  const [dark, setDark]           = useState<boolean>(false);
   const [spending, setSpending]   = useState<Spending>(DEFAULT);
   const [sector, setSector]       = useState<string>("combined");
   const [state, setState]         = useState<string>("Karnataka");
@@ -760,8 +892,9 @@ export default function App(): JSX.Element {
       <style>{S}</style>
       {toast && <div className="toast" style={{ background: TOAST_COLORS[toastType] }}>{toast}</div>}
 
-      <div className="wrap">
-        <div className="hero">
+      <div className={`wrap${dark ? " dark" : ""}`}>
+        <div className="hero" style={{ position:"relative" }}>
+          <button className="dark-toggle" onClick={() => setDark(d => !d)}>{dark ? "☀ Light" : "◑ Dark"}</button>
           <div className="pill">✦ India CPI Tool · {cpiData.month}</div>
           <h1>Your <span>Personal</span> Inflation Rate</h1>
           <p>The national average hides your reality. Calculate what inflation actually costs you.</p>
@@ -834,7 +967,13 @@ export default function App(): JSX.Element {
                       <div className="inp-row" style={{ marginTop:6 }}>
                         <div className="inp-wrap" style={{ borderColor: w > 15 ? `${c.color}66` : "rgba(255,255,255,.9)" }}>
                           <span style={{ color:c.color }}>₹</span>
-                          <input type="number" min="0" value={spending[c.key]} onChange={e => setSpending(s => ({ ...s, [c.key]: +e.target.value }))}/>
+                          <input type="number" min="0" value={spending[c.key]}
+                            onChange={e => setSpending(s => ({ ...s, [c.key]: +e.target.value }))}
+                            onKeyDown={e => {
+                              if (e.key === "ArrowUp")   { e.preventDefault(); setSpending(s => ({ ...s, [c.key]: s[c.key] + 500 })); }
+                              if (e.key === "ArrowDown") { e.preventDefault(); setSpending(s => ({ ...s, [c.key]: Math.max(0, s[c.key] - 500) })); }
+                            }}
+                          />
                         </div>
                         <div className="stepper">
                           <button className="step-btn" style={{ borderColor:`${c.color}44`, color:c.color }} onClick={() => setSpending(s => ({ ...s, [c.key]: Math.max(0, s[c.key] + 500) }))}>▲</button>
@@ -879,7 +1018,7 @@ export default function App(): JSX.Element {
                   { val: adjustedCpi.headline.toFixed(2) + "%", lbl:`${state} CPI`, c:"#2D98DA", bg:"#EDF4FF", border:"#A8D4F5" },
                   { val: forecastRate.toFixed(2) + "%", lbl:"6-Mo Forecast",   c:"#20BF6B",  bg:"#F0FFF7",         border:"#A8EEC8" },
                 ].map(b => (
-                  <div key={b.lbl} className="cmp-box" style={{ background:b.bg, border:`2.5px solid ${b.border}`, boxShadow:`0 4px 16px ${b.c}22` }}>
+                  <div key={b.lbl} className="cmp-box" style={{ background: dark ? "#1C1828" : b.bg, border: dark ? `1px solid ${b.c}33` : `2.5px solid ${b.border}`, boxShadow: dark ? "none" : `0 4px 16px ${b.c}22` }}>
                     <div className="cmp-num" style={{ color:b.c }}>{b.val}</div>
                     <div className="cmp-lbl" style={{ color:b.c }}>{b.lbl}</div>
                   </div>
@@ -933,12 +1072,51 @@ export default function App(): JSX.Element {
                   <div style={{ fontSize:12, color:"#CCC", marginTop:5, fontWeight:500 }}>Go to Calculator → hit "Save to Tracker" each month.</div>
                 </div>
               ) : (<>
+                {tracker.length >= 2 && (() => {
+                  const W = 400, H = 80, PAD = 16;
+                  const minR = Math.min(...tracker.map(x => x.rate));
+                  const maxR = Math.max(...tracker.map(x => x.rate));
+                  const range = maxR - minR || 1;
+                  const pts = tracker.map((e, i) => {
+                    const x = PAD + (i / (tracker.length - 1)) * (W - PAD * 2);
+                    const y = PAD + (1 - (e.rate - minR) / range) * (H - PAD * 2);
+                    return { x, y, e };
+                  });
+                  const polyline = pts.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+                  const fillPath = `M${pts[0].x.toFixed(1)},${H} ` + pts.map(p => `L${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ") + ` L${pts[pts.length-1].x.toFixed(1)},${H} Z`;
+                  return (
+                    <div className="chart-wrap">
+                      <div style={{ fontSize:10, fontWeight:800, letterSpacing:1.5, textTransform:"uppercase", color:"#AAA", marginBottom:6 }}>Rate Trend</div>
+                      <svg viewBox={`0 0 ${W} ${H}`} style={{ width:"100%", height:"auto", display:"block" }}>
+                        <defs>
+                          <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor="#764ba2" stopOpacity="0.25"/>
+                            <stop offset="100%" stopColor="#764ba2" stopOpacity="0"/>
+                          </linearGradient>
+                        </defs>
+                        <path d={fillPath} fill="url(#cg)"/>
+                        <polyline points={polyline} fill="none" stroke="#764ba2" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round"/>
+                        {pts.map((p, i) => {
+                          const c = p.e.rate > 4.5 ? "#FC5C65" : p.e.rate > 3.5 ? "#F7B731" : "#20BF6B";
+                          return (
+                            <g key={i}>
+                              <circle cx={p.x} cy={p.y} r="4" fill={c} stroke="#fff" strokeWidth="1.5"/>
+                              <text x={p.x} y={p.y - 8} textAnchor="middle" fontSize="8" fontWeight="800" fill={c} fontFamily="DM Sans,sans-serif">{p.e.rate}%</text>
+                            </g>
+                          );
+                        })}
+                        <text x={pts[0].x} y={H - 2} textAnchor="middle" fontSize="8" fill="#AAA" fontFamily="DM Sans,sans-serif">{pts[0].e.label}</text>
+                        <text x={pts[pts.length-1].x} y={H - 2} textAnchor="middle" fontSize="8" fill="#AAA" fontFamily="DM Sans,sans-serif">{pts[pts.length-1].e.label}</text>
+                      </svg>
+                    </div>
+                  );
+                })()}
                 {tracker.map((e, i) => {
                   const maxT = Math.max(...tracker.map(x => x.rate)) * 1.1;
                   const c = e.rate > 4.5 ? "#FC5C65" : e.rate > 3.5 ? "#F7B731" : "#20BF6B";
-                  const bg = e.rate > 4.5 ? "linear-gradient(135deg,#FFF0F1,#FFE8EA)" : e.rate > 3.5 ? "linear-gradient(135deg,#FFFBF0,#FFF3D0)" : "linear-gradient(135deg,#F0FFF7,#E0FFF0)";
+                  const bg = dark ? "#1C1828" : e.rate > 4.5 ? "linear-gradient(135deg,#FFF0F1,#FFE8EA)" : e.rate > 3.5 ? "linear-gradient(135deg,#FFFBF0,#FFF3D0)" : "linear-gradient(135deg,#F0FFF7,#E0FFF0)";
                   return (
-                    <div className="tracker-entry" key={i} style={{ background:bg, border:`2px solid ${c}33` }}>
+                    <div className="tracker-entry" key={i} style={{ background:bg, border: dark ? `1px solid ${c}44` : `2px solid ${c}33` }}>
                       <div className="tracker-month">{e.label}</div>
                       <div className="tracker-bar"><div className="tracker-fill" style={{ width:`${(e.rate/maxT)*100}%`, background:`linear-gradient(135deg,${c},${c}CC)` }}/></div>
                       <div style={{ fontSize:16, fontWeight:800, color:c, width:46, textAlign:"right" }}>{e.rate}%</div>
@@ -990,7 +1168,7 @@ export default function App(): JSX.Element {
                   <div className="forecast-next" style={{ color: forecastCpi[c.key] > adjustedCpi[c.key] ? "#FC5C65" : "#20BF6B" }}>{forecastCpi[c.key].toFixed(1)}%</div>
                 </div>
               ))}
-              <div style={{ marginTop:14, padding:"14px 16px", background:"linear-gradient(135deg,#F8F4FF,#EDF4FF)", borderRadius:14, fontSize:13, border:"2px solid #DDD5F5" }}>
+              <div style={{ marginTop:14, padding:"14px 16px", background: dark ? "#1C1828" : "linear-gradient(135deg,#F8F4FF,#EDF4FF)", borderRadius:14, fontSize:13, border: dark ? "1px solid rgba(167,139,250,.2)" : "2px solid #DDD5F5", color: dark ? "#F0EBFF" : "inherit" }}>
                 <span style={{ color:"#888", fontWeight:500 }}>Projected rate in 6 months: </span>
                 <strong style={{ color: forecastRate > personalRate ? "#FC5C65" : "#20BF6B" }}>{forecastRate.toFixed(2)}%</strong>
                 <span style={{ color:"#888", fontWeight:500 }}> ({forecastRate > personalRate ? "▲" : "▼"} {Math.abs(forecastRate - personalRate).toFixed(2)}% from today)</span>
@@ -1002,20 +1180,20 @@ export default function App(): JSX.Element {
             <div className="card">
               <div className="card-title" style={{ color:"#FC5C65" }}>💸 Annual Purchasing Power Loss</div>
               <div className="metric-grid">
-                <div className="metric" style={{ background:"linear-gradient(135deg,#FFF0F1,#FFE8EA)", boxShadow:"0 4px 16px rgba(252,92,101,.15)" }}><div className="metric-val" style={{ color:"#FC5C65" }}>₹{fmt(annualLoss)}</div><div className="metric-lbl" style={{ color:"#FC5C65" }}>Lost per year to inflation</div></div>
-                <div className="metric" style={{ background:"linear-gradient(135deg,#FFFBF0,#FFF3D0)", boxShadow:"0 4px 16px rgba(247,183,49,.15)" }}><div className="metric-val" style={{ color:"#F7B731" }}>₹{fmt(annualLoss/12)}</div><div className="metric-lbl" style={{ color:"#F7B731" }}>Lost per month</div></div>
-                <div className="metric" style={{ background:"linear-gradient(135deg,#EDF4FF,#D4EAFF)", boxShadow:"0 4px 16px rgba(45,152,218,.15)" }}><div className="metric-val" style={{ color:"#2D98DA" }}>{(100-personalRate).toFixed(1)}%</div><div className="metric-lbl" style={{ color:"#2D98DA" }}>of ₹100 retained next year</div></div>
-                <div className="metric" style={{ background:"linear-gradient(135deg,#F0FFF7,#D4F5E5)", boxShadow:"0 4px 16px rgba(32,191,107,.15)" }}><div className="metric-val" style={{ color:"#20BF6B" }}>{(personalRate+1.5).toFixed(1)}%+</div><div className="metric-lbl" style={{ color:"#20BF6B" }}>FD rate to beat inflation</div></div>
+                <div className="metric" style={{ background: dark ? "#1C1828" : "linear-gradient(135deg,#FFF0F1,#FFE8EA)", border: dark ? "1px solid rgba(252,92,101,.25)" : "none", boxShadow: dark ? "none" : "0 4px 16px rgba(252,92,101,.15)" }}><div className="metric-val" style={{ color:"#FC5C65" }}>₹{fmt(annualLoss)}</div><div className="metric-lbl" style={{ color: dark ? "#FC5C65" : "#FC5C65" }}>Lost per year to inflation</div></div>
+                <div className="metric" style={{ background: dark ? "#1C1828" : "linear-gradient(135deg,#FFFBF0,#FFF3D0)", border: dark ? "1px solid rgba(247,183,49,.25)" : "none", boxShadow: dark ? "none" : "0 4px 16px rgba(247,183,49,.15)" }}><div className="metric-val" style={{ color:"#F7B731" }}>₹{fmt(annualLoss/12)}</div><div className="metric-lbl" style={{ color:"#F7B731" }}>Lost per month</div></div>
+                <div className="metric" style={{ background: dark ? "#1C1828" : "linear-gradient(135deg,#EDF4FF,#D4EAFF)", border: dark ? "1px solid rgba(45,152,218,.25)" : "none", boxShadow: dark ? "none" : "0 4px 16px rgba(45,152,218,.15)" }}><div className="metric-val" style={{ color:"#2D98DA" }}>{(100-personalRate).toFixed(1)}%</div><div className="metric-lbl" style={{ color:"#2D98DA" }}>of ₹100 retained next year</div></div>
+                <div className="metric" style={{ background: dark ? "#1C1828" : "linear-gradient(135deg,#F0FFF7,#D4F5E5)", border: dark ? "1px solid rgba(32,191,107,.25)" : "none", boxShadow: dark ? "none" : "0 4px 16px rgba(32,191,107,.15)" }}><div className="metric-val" style={{ color:"#20BF6B" }}>{(personalRate+1.5).toFixed(1)}%+</div><div className="metric-lbl" style={{ color:"#20BF6B" }}>FD rate to beat inflation</div></div>
               </div>
             </div>
 
-            <SmartRebalancer spending={spending} adjustedCpi={adjustedCpi} personalRate={personalRate} total={total} cats={CATS} fmt={fmt}/>
+            <SmartRebalancer spending={spending} adjustedCpi={adjustedCpi} personalRate={personalRate} total={total} cats={CATS} fmt={fmt} dark={dark}/>
 
             <div className="card">
               <div className="card-title" style={{ color:"#A55EEA" }}>💡 Smart Substitution Suggestions</div>
-              <div style={{ fontSize:12, color:"#888", marginBottom:14, fontWeight:500 }}>Targeted tips for your top 3 highest-inflation categories.</div>
+              <div style={{ fontSize:12, color: dark ? "#8B7FB0" : "#888", marginBottom:14, fontWeight:500 }}>Targeted tips for your top 3 highest-inflation categories.</div>
               {[...CATS].sort((a,b) => ((adjustedCpi[b.key]||0)*weights[b.key]/100) - ((adjustedCpi[a.key]||0)*weights[a.key]/100)).slice(0,3).map(c => (
-                <div className="sub-card" key={c.key} style={{ background:c.bg, boxShadow:`0 4px 16px ${c.color}22` }}>
+                <div className="sub-card" key={c.key} style={{ background: dark ? "#1C1828" : c.bg, border: dark ? `1px solid ${c.color}44` : "none", boxShadow: dark ? "none" : `0 4px 16px ${c.color}22` }}>
                   <div className="sub-cat">
                     <span style={{ fontSize:28, filter:`drop-shadow(0 2px 4px ${c.color}44)` }}>{c.icon}</span>
                     <span style={{ fontSize:13, fontWeight:800, color:c.color }}>{c.label}</span>
@@ -1030,10 +1208,10 @@ export default function App(): JSX.Element {
 
             <div className="card">
               <div className="card-title" style={{ color:"#20BF6B" }}>👥 Peer Benchmarking</div>
-              <div style={{ fontSize:12, color:"#888", marginBottom:6, fontWeight:500 }}>How your inflation compares to other users in {state}.</div>
+              <div style={{ fontSize:12, color: dark ? "#8B7FB0" : "#888", marginBottom:6, fontWeight:500 }}>How your inflation compares to other users in {state}.</div>
               <div className="bench-bar"><div className="bench-fill" style={{ width:"100%" }}/><div className="bench-marker" style={{ left:`${markerLeft}%` }}/></div>
               <div className="bench-labels"><span>Low</span><span>P25: {PEER_BENCHMARK.p25}%</span><span>Avg: {PEER_BENCHMARK.p50}%</span><span>P75: {PEER_BENCHMARK.p75}%</span><span>High</span></div>
-              <div style={{ marginTop:14, padding:"14px 16px", background: percentile>75 ? "linear-gradient(135deg,#FFF0F1,#FFE8EA)" : percentile>50 ? "linear-gradient(135deg,#FFFBF0,#FFF3D0)" : "linear-gradient(135deg,#F0FFF7,#D4F5E5)", borderRadius:14, fontSize:13, border:`2px solid ${percentile>75 ? "#FFBCC0" : percentile>50 ? "#FFE082" : "#A8EEC8"}`, fontWeight:500 }}>
+              <div style={{ marginTop:14, padding:"14px 16px", background: dark ? "#1C1828" : percentile>75 ? "linear-gradient(135deg,#FFF0F1,#FFE8EA)" : percentile>50 ? "linear-gradient(135deg,#FFFBF0,#FFF3D0)" : "linear-gradient(135deg,#F0FFF7,#D4F5E5)", borderRadius:14, fontSize:13, border: dark ? `1px solid ${percentile>75 ? "rgba(252,92,101,.3)" : percentile>50 ? "rgba(247,183,49,.3)" : "rgba(32,191,107,.3)"}` : `2px solid ${percentile>75 ? "#FFBCC0" : percentile>50 ? "#FFE082" : "#A8EEC8"}`, fontWeight:500, color: dark ? "#F0EBFF" : "inherit" }}>
                 Your rate of <strong style={{ color:rateColor }}>{personalRate.toFixed(2)}%</strong> is higher than <strong>{percentile}%</strong> of users in your area.
                 {percentile > 75 ? " You're in the high-inflation group — review your top spending categories." : percentile > 50 ? " You're slightly above average — small adjustments could help." : " Great — you're managing inflation well!"}
               </div>
@@ -1041,19 +1219,19 @@ export default function App(): JSX.Element {
 
             <div className="card">
               <div className="card-title" style={{ color:"#F7B731" }}>💼 Salary Inflation Check</div>
-              <div style={{ fontSize:12, color:"#888", marginBottom:14, fontWeight:500 }}>Did your last raise actually beat your personal inflation?</div>
+              <div style={{ fontSize:12, color: dark ? "#8B7FB0" : "#888", marginBottom:14, fontWeight:500 }}>Did your last raise actually beat your personal inflation?</div>
               <div style={{ display:"flex", gap:10, alignItems:"center", flexWrap:"wrap" }}>
-                <div style={{ fontSize:13, color:"#666", fontWeight:600 }}>My last salary hike was</div>
+                <div style={{ fontSize:13, color: dark ? "#8B7FB0" : "#666", fontWeight:600 }}>My last salary hike was</div>
                 <input className="sal-inp" type="number" min="0" max="100" step="0.1" placeholder="e.g. 8" value={salary} onChange={e => setSalary(e.target.value)}/>
-                <div style={{ fontSize:13, color:"#666", fontWeight:600 }}>%</div>
+                <div style={{ fontSize:13, color: dark ? "#8B7FB0" : "#666", fontWeight:600 }}>%</div>
               </div>
               {salaryNum > 0 && (
                 <div>
-                  <div className="verdict" style={{ background: salaryOk ? "linear-gradient(135deg,#F0FFF7,#D4F5E5)" : "linear-gradient(135deg,#FFF0F1,#FFE8EA)", color: salaryOk ? "#20BF6B" : "#FC5C65", border:`2px solid ${salaryOk ? "#A8EEC8" : "#FFBCC0"}` }}>
+                  <div className="verdict" style={{ background: dark ? "#1C1828" : salaryOk ? "linear-gradient(135deg,#F0FFF7,#D4F5E5)" : "linear-gradient(135deg,#FFF0F1,#FFE8EA)", color: salaryOk ? "#20BF6B" : "#FC5C65", border: dark ? `1px solid ${salaryOk ? "rgba(32,191,107,.35)" : "rgba(252,92,101,.35)"}` : `2px solid ${salaryOk ? "#A8EEC8" : "#FFBCC0"}` }}>
                     {salaryOk ? "✓ Your raise beat inflation" : "✗ Your raise didn't beat inflation"}
                   </div>
-                  <div style={{ fontSize:12, color:"#888", marginTop:10, lineHeight:1.7, fontWeight:500 }}>
-                    Salary hike: <strong style={{ color:"#333" }}>{salaryNum}%</strong> · Personal inflation: <strong style={{ color:rateColor }}>{personalRate.toFixed(2)}%</strong> · Real raise: <strong style={{ color: salaryOk ? "#20BF6B" : "#FC5C65" }}>{realRaise > 0 ? "+" : ""}{realRaise.toFixed(2)}%</strong>
+                  <div style={{ fontSize:12, color: dark ? "#8B7FB0" : "#888", marginTop:10, lineHeight:1.7, fontWeight:500 }}>
+                    Salary hike: <strong style={{ color: dark ? "#F0EBFF" : "#333" }}>{salaryNum}%</strong> · Personal inflation: <strong style={{ color:rateColor }}>{personalRate.toFixed(2)}%</strong> · Real raise: <strong style={{ color: salaryOk ? "#20BF6B" : "#FC5C65" }}>{realRaise > 0 ? "+" : ""}{realRaise.toFixed(2)}%</strong>
                     <br/>{salaryOk ? `You're ${realRaise.toFixed(2)}% ahead in real terms.` : `You effectively took a ${Math.abs(realRaise).toFixed(2)}% pay cut in real terms.`}
                   </div>
                 </div>
@@ -1082,12 +1260,12 @@ export default function App(): JSX.Element {
                   <div><div style={{ fontSize:11, color:"#764ba2", fontWeight:800, marginBottom:7, letterSpacing:1 }}>YEARS TO GOAL</div><input className="num-inp" type="number" placeholder="e.g. 10" value={goalYears} onChange={e => setGoalYears(e.target.value)}/></div>
                 </div>
                 {goalAmt > 0 && goalYr > 0 && (
-                  <div className="tool-result" style={{ background:"linear-gradient(135deg,#F8F4FF,#EDF4FF)", boxShadow:"0 4px 20px rgba(118,75,162,.15)" }}>
-                    <div style={{ fontSize:13, fontWeight:800, color:"#764ba2", marginBottom:12 }}>Your Inflation-Adjusted Plan</div>
+                  <div className="tool-result" style={{ background: dark ? "#1C1828" : "linear-gradient(135deg,#F8F4FF,#EDF4FF)", border: dark ? "1px solid rgba(167,139,250,.2)" : "none", boxShadow: dark ? "none" : "0 4px 20px rgba(118,75,162,.15)" }}>
+                    <div style={{ fontSize:13, fontWeight:800, color:"#A78BFA", marginBottom:12 }}>Your Inflation-Adjusted Plan</div>
                     <div className="tool-row"><span className="tool-key">Goal in today's ₹</span><span className="tool-val">₹{fmt(goalAmt)}</span></div>
                     <div className="tool-row"><span className="tool-key">Inflation-adjusted goal in {goalYr}yr</span><span className="tool-val" style={{ color:"#FC5C65" }}>₹{fmt(inflationAdjustedGoal)}</span></div>
                     <div className="tool-row"><span className="tool-key">Extra needed due to inflation</span><span className="tool-val" style={{ color:"#F7B731" }}>₹{fmt(inflationAdjustedGoal - goalAmt)}</span></div>
-                    <div className="tool-row"><span className="tool-key">Monthly savings needed</span><span className="tool-val" style={{ color:"#764ba2" }}>₹{fmt(monthlySavingsNeeded)}</span></div>
+                    <div className="tool-row"><span className="tool-key">Monthly savings needed</span><span className="tool-val" style={{ color:"#A78BFA" }}>₹{fmt(monthlySavingsNeeded)}</span></div>
                     <div className="tool-row"><span className="tool-key">Your personal inflation rate</span><span className="tool-val">{personalRate.toFixed(2)}%</span></div>
                   </div>
                 )}
@@ -1095,13 +1273,13 @@ export default function App(): JSX.Element {
 
               {activeTool === "emi" && (<>
                 <div className="card-title" style={{ color:"#20BF6B" }}>🏠 EMI Reality Check</div>
-                <div style={{ fontSize:12, color:"#888", marginBottom:18, fontWeight:500 }}>Inflation makes fixed EMIs cheaper over time in real terms. See by how much.</div>
+                <div style={{ fontSize:12, color: dark ? "#8B7FB0" : "#888", marginBottom:18, fontWeight:500 }}>Inflation makes fixed EMIs cheaper over time in real terms. See by how much.</div>
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))", gap:14, marginBottom:14 }}>
                   <div><div style={{ fontSize:11, color:"#20BF6B", fontWeight:800, marginBottom:7, letterSpacing:1 }}>MONTHLY EMI (₹)</div><input className="num-inp" type="number" placeholder="e.g. 25000" value={emiAmount} onChange={e => setEmiAmount(e.target.value)}/></div>
                   <div><div style={{ fontSize:11, color:"#20BF6B", fontWeight:800, marginBottom:7, letterSpacing:1 }}>LOAN TENURE (YEARS)</div><input className="num-inp" type="number" placeholder="e.g. 20" value={emiYears} onChange={e => setEmiYears(e.target.value)}/></div>
                 </div>
                 {emiAmt > 0 && emiYr > 0 && (
-                  <div className="tool-result" style={{ background:"linear-gradient(135deg,#F0FFF7,#D4F5E5)", boxShadow:"0 4px 20px rgba(32,191,107,.15)" }}>
+                  <div className="tool-result" style={{ background: dark ? "#1C1828" : "linear-gradient(135deg,#F0FFF7,#D4F5E5)", border: dark ? "1px solid rgba(32,191,107,.2)" : "none", boxShadow: dark ? "none" : "0 4px 20px rgba(32,191,107,.15)" }}>
                     <div style={{ fontSize:13, fontWeight:800, color:"#20BF6B", marginBottom:12 }}>EMI Inflation Analysis</div>
                     <div className="tool-row"><span className="tool-key">Total EMI paid (nominal)</span><span className="tool-val">₹{fmt(totalEmiPaid)}</span></div>
                     <div className="tool-row"><span className="tool-key">Inflation benefit over tenure</span><span className="tool-val" style={{ color:"#20BF6B" }}>₹{fmt(Math.abs(emiInflationBenefit))}</span></div>
@@ -1115,14 +1293,14 @@ export default function App(): JSX.Element {
 
               {activeTool === "sip" && (<>
                 <div className="card-title" style={{ color:"#2D98DA" }}>📈 Investment Sufficiency Checker</div>
-                <div style={{ fontSize:12, color:"#888", marginBottom:18, fontWeight:500 }}>Is your SIP actually beating your personal inflation in real terms?</div>
+                <div style={{ fontSize:12, color: dark ? "#8B7FB0" : "#888", marginBottom:18, fontWeight:500 }}>Is your SIP actually beating your personal inflation in real terms?</div>
                 <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(120px,1fr))", gap:12, marginBottom:14 }}>
                   <div><div style={{ fontSize:11, color:"#2D98DA", fontWeight:800, marginBottom:7, letterSpacing:1 }}>MONTHLY SIP (₹)</div><input className="num-inp" type="number" placeholder="e.g. 10000" value={sipAmount} onChange={e => setSipAmount(e.target.value)}/></div>
                   <div><div style={{ fontSize:11, color:"#2D98DA", fontWeight:800, marginBottom:7, letterSpacing:1 }}>RETURN (%)</div><input className="num-inp" type="number" placeholder="e.g. 12" value={sipReturn} onChange={e => setSipReturn(e.target.value)}/></div>
                   <div><div style={{ fontSize:11, color:"#2D98DA", fontWeight:800, marginBottom:7, letterSpacing:1 }}>YEARS</div><input className="num-inp" type="number" placeholder="e.g. 15" value={sipYears} onChange={e => setSipYears(e.target.value)}/></div>
                 </div>
                 {sipAmt > 0 && sipRet > 0 && sipYr > 0 && (
-                  <div className="tool-result" style={{ background: sipBeatsInflation ? "linear-gradient(135deg,#F0FFF7,#D4F5E5)" : "linear-gradient(135deg,#FFF0F1,#FFE8EA)", boxShadow:`0 4px 20px ${sipBeatsInflation ? "rgba(32,191,107,.15)" : "rgba(252,92,101,.15)"}` }}>
+                  <div className="tool-result" style={{ background: dark ? "#1C1828" : sipBeatsInflation ? "linear-gradient(135deg,#F0FFF7,#D4F5E5)" : "linear-gradient(135deg,#FFF0F1,#FFE8EA)", border: dark ? `1px solid ${sipBeatsInflation ? "rgba(32,191,107,.2)" : "rgba(252,92,101,.2)"}` : "none", boxShadow: dark ? "none" : `0 4px 20px ${sipBeatsInflation ? "rgba(32,191,107,.15)" : "rgba(252,92,101,.15)"}` }}>
                     <div style={{ display:"flex", alignItems:"center", flexWrap:"wrap", gap:10, marginBottom:12 }}>
                       <div style={{ fontSize:13, fontWeight:800, color: sipBeatsInflation ? "#20BF6B" : "#FC5C65" }}>Investment Analysis</div>
                       <div style={{ fontSize:11, fontWeight:800, padding:"5px 14px", borderRadius:100, background: sipBeatsInflation ? "linear-gradient(135deg,#20BF6B,#26de81)" : "linear-gradient(135deg,#FC5C65,#FF4757)", color:"#fff", boxShadow:`0 3px 10px ${sipBeatsInflation ? "rgba(32,191,107,.35)" : "rgba(252,92,101,.35)"}` }}>
